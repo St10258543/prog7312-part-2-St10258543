@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!-- ReportSubmittedMessage -->
+  <data name="ReportSubmittedMessage" xml:space="preserve">
+    <value>Jou verslag is suksesvol ingedien!</value>
+  </data>
+</root>

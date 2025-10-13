@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- Page Tile-->
+  <data name="ReportIssuesTitle" xml:space="preserve">
+    <value>Bika Izinkinga</value>
+  </data>
+  <data name="ReportAnIssue" xml:space="preserve">
+    <value>Bika Inkinga</value>
+  </data>
+
+  <!-- Page Description-->
+  <data name="ReportIssuesDescription" xml:space="preserve">
+    <value>Bika noma yiziphi izinkinga emakhelwaneni akho, ezifana nezibani zomgwaqo eziphukile, ukuvuza kwamanzi noma ukonakala komgwaqo. Faka izithombe ukuze kuxazululwe ngokushesha.</value>
+  </data>
+
+  <!-- Report Issue Form --> 
+  <data name="Location" xml:space="preserve">
+    <value>Indawo:</value>
+  </data>
+  <data name="EnterLocationPlaceholder" xml:space="preserve">
+    <value>Faka indawo yenkonzo/inkinga</value>
+  </data>
+
+  <data name="Category" xml:space="preserve">
+    <value>Isigaba:</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Khetha Isigaba</value>
+  </data>
+  <data name="Sanitation" xml:space="preserve">
+    <value>Ukuhlanzeka</value>
+  </data>
+  <data name="Roads" xml:space="preserve">
+    <value>Imigwaqo</value>
+  </data>
+  <data name="Utilities" xml:space="preserve">
+    <value>Izinsiza</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Okunye</value>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>Incazelo:</value>
+  </data>
+  <data name="DescribeIssuePlaceholder" xml:space="preserve">
+    <value>Chaza inkinga...</value>
+  </data>
+
+  <data name="AttachMedia" xml:space="preserve">
+    <value>Faka Izithombe/Nemibhalo:</value>
+  </data>
+  <data name="ChooseFileButton" xml:space="preserve">
+    <value>Khetha ifayela</value>
+  </data>
+  <data name="NoFileChosen" xml:space="preserve">
+    <value>Alukho ifayela olukhethiwe</value>
+  </data>
+  <data name="FilesSelected" xml:space="preserve">
+    <value>amafayela akhethiwe</value>
+  </data>
+
+  <!-- Report Progress -->
+  <data name="ReportProgress" xml:space="preserve">
+    <value>Inqubekelaphambili Yokubika:</value>
+  </data>
+
+  <!-- Navigation Buttons -->
+  <data name="BackButton" xml:space="preserve">
+    <value>Emuva</value>
+  </data>
+  <data name="SubmitReportButton" xml:space="preserve">
+    <value>Thumela Umbiko</value>
+  </data>
+</root>

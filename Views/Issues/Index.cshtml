@@ -1,0 +1,154 @@
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["ReportIssuesTitle"];
+}
+
+<!-- <Section: Hero Section> -->
+<div class="issue-hero-section">
+    <div class="overlay"></div>
+    <div class="issue-hero-content">
+        <h1 class="app-title">@Localizer["ReportIssuesTitle"]</h1>
+        <p class="app-description">@Localizer["ReportIssuesDescription"]</p>
+    </div>
+</div>
+
+<!-- <Section: Report Form Wrapper> -->
+<div class="report-wrapper container">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="report-card">
+        <form id="reportForm" method="post" enctype="multipart/form-data" 
+              asp-controller="Issues" asp-action="SubmitReport">
+
+            <!-- <Row: Location Input> -->
+<div class="form-group">
+    <label for="location">@Localizer["Location"]</label>
+    <textarea id="location" name="location" class="form-control" rows="3"
+              placeholder="@Localizer["EnterLocationPlaceholder"]" required></textarea>
+</div>
+
+<!-- <Row: Category Dropdown (Now under Location)> -->
+<div class="form-group">
+    <label for="category">@Localizer["Category"]</label>
+    <select id="category" name="category" class="form-control" required>
+        <option value="">-- @Localizer["SelectCategory"] --</option>
+        <option value="Water and Sanitation">@Localizer["Water and Sanitiation"]</option>
+        <option value="Electricity and Lighting">@Localizer["Electricity and Lighting"]</option>
+        <option value="Roads and Transport">@Localizer["Roads and Transport"]</option>
+        <option value="Waste and Environment">@Localizer["Waste and Environment"]</option>
+        <option value="Community and Governance">@Localizer["Community and Governance"]</option>
+        <option value="Other">@Localizer["Other"]</option>
+    </select>
+</div>
+
+
+            <!-- <Textarea: Issue Description> -->
+            <div class="form-group">
+                <label for="description">@Localizer["Description"]</label>
+                <textarea id="description" name="description" class="form-control" rows="5"
+                          placeholder="@Localizer["DescribeIssuePlaceholder"]" required></textarea>
+            </div>
+
+            <!-- <File Upload: Attach Media> -->
+            <div class="form-group">
+                <label for="media">@Localizer["AttachMedia"]</label>
+                <div class="custom-file-input-wrapper d-flex align-items-center p-2">
+                    <input type="file" id="media" name="media" multiple style="display:none" />
+                    <button type="button" class="btn btn-outline-secondary me-2" id="mediaButton">
+                        @Localizer["ChooseFileButton"]
+                    </button>
+                    <span id="mediaLabel" aria-live="polite">@Localizer["NoFileChosen"]</span>
+                </div>
+            </div>
+
+            <!-- <Progress Bar: Report Completion> -->
+            <div class="form-group">
+                <label>@Localizer["ReportProgress"]</label>
+                <div class="progress mt-1" style="height: 20px;">
+                    <div id="progressBar" class="progress-bar bg-danger" role="progressbar"
+                         style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        0%
+                    </div>
+                </div>
+            </div>
+
+            <!-- <Form Buttons: Back and Submit> -->
+            <div class="form-buttons mt-3">
+                <button type="button" class="btn btn-secondary me-2" id="backBtn">
+                    @Localizer["BackButton"]
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    @Localizer["SubmitReportButton"]
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- <Script Section: File Input & Progress Bar Functionality> -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const mediaInput = document.getElementById('media');
+        const mediaButton = document.getElementById('mediaButton');
+        const mediaLabel = document.getElementById('mediaLabel');
+        const progressBar = document.getElementById('progressBar');
+        const formInputs = ["location", "category", "description", "latitude", "longitude"];
+
+        // Trigger file input when button is clicked
+        mediaButton.addEventListener('click', () => mediaInput.click());
+
+        // Display selected file names
+        mediaInput.addEventListener('change', () => {
+            const files = Array.from(mediaInput.files);
+            mediaLabel.textContent = files.length > 0 ? files.map(f => f.name).join(", ") : '@Localizer["NoFileChosen"]';
+            updateProgress();
+        });
+
+        // Update progress bar when form fields change
+        formInputs.forEach(id => {
+            const el = document.getElementById(id);
+            el.addEventListener('input', updateProgress);
+            el.addEventListener('change', updateProgress);
+        });
+
+        function updateProgress() {
+            let progress = 0;
+            const locationValue = document.getElementById("location").value.trim();
+            const categoryValue = document.getElementById("category").value;
+            const descriptionValue = document.getElementById("description").value.trim();
+            const latitudeValue = document.getElementById("latitude").value.trim();
+            const longitudeValue = document.getElementById("longitude").value.trim();
+            const mediaFiles = mediaInput.files.length;
+
+            if (locationValue !== "") progress += 15;
+            if (categoryValue !== "") progress += 15;
+            if (descriptionValue !== "") progress += 25;
+            if (mediaFiles > 0) progress += 25;
+            if (latitudeValue !== "" && longitudeValue !== "") progress += 20;
+
+            progressBar.style.width = progress + "%";
+            progressBar.innerText = progress + "%";
+
+            if (progress < 40) progressBar.className = "progress-bar bg-danger";
+            else if (progress < 80) progressBar.className = "progress-bar bg-warning";
+            else progressBar.className = "progress-bar bg-success";
+        }
+
+        // Initialize progress bar on page load
+        updateProgress();
+
+        // Back button functionality
+        document.getElementById("backBtn").addEventListener("click", function () {
+            if (window.history.length > 1) window.history.back();
+            else window.location.href = '@Url.Action("Index","Home")';
+        });
+    });
+</script>

@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNetCore.Localization
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Municipality App</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MunicipalityApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Municipality App</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- Home link -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                @Localizer["Navbar_Home"]
+                            </a>
+                        </li>
+
+                        <!-- Report Issues link -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Issues" asp-action="Index">
+                                @Localizer["Navbar_ReportIssues"]
+                            </a>
+                        </li>
+
+                        <!-- Status link -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Issues" asp-action="Status">
+                                @Localizer["Navbar_Status"]
+                            </a>
+                        </li>
+
+                         <!-- Events link -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Events" asp-action="Index">
+                                @Localizer["Navbar_Events"]
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Multilingual support dropdown -->
+                    @{
+                        // List of supported languages
+                        var languages = new List<(string Code, string Name)>
+                        {
+                            ("en", "English"),
+                            ("af", "Afrikaans"),
+                            ("zu", "Zulu")
+                        };
+
+                        // Get current language from cookie
+                        var cookie = Context.Request.Cookies[Microsoft.AspNetCore.Localization.CookieRequestCultureProvider.DefaultCookieName];
+                        var currentLang = cookie != null
+                            ? cookie.Split('|').FirstOrDefault()?.Split('=')[1]
+                            : "en";
+                    }
+
+                    <!-- Language dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="languageDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            @Localizer["Navbar_Language"]
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                            @foreach (var lang in languages)
+                            {
+                                var activeClass = lang.Code == currentLang ? "active" : "";
+                                <li>
+                                    <a class="dropdown-item @activeClass" 
+                                       asp-controller="Language" 
+                                       asp-action="SetLanguage" 
+                                       asp-route-lang="@lang.Code" 
+                                       asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString)">
+                                        @lang.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - MunicipalityApp | @Localizer["Footer_Text"] |
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Footer_Terms"]</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

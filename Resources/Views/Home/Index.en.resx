@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Home Page -->
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Municipality App</value>
+  </data>
+  <data name="HomePageDescription" xml:space="preserve">
+    <value>Welcome to the Municipality App. Here, you can report issues in your community, stay updated on local events and announcements, and track the status of your service requests.</value>
+  </data>
+
+  <!-- Navbar -->
+  <data name="NavHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="NavReportIssues" xml:space="preserve">
+    <value>Report Issues</value>
+  </data>
+  <data name="NavEvents" xml:space="preserve">
+    <value>Local Events and Announcements</value>
+  </data>
+  <data name="NavRequests" xml:space="preserve">
+    <value>Service Request Status</value>
+  </data>
+
+  <!-- Feature Card: Report Issues -->
+  <data name="FeatureReportTitle" xml:space="preserve">
+   <value>Report Issues</value>
+   </data>
+   <data name="FeatureReportDescription" xml:space="preserve">
+    <value>Quickly report municipal issues such as potholes, water leaks, and power outages.</value>
+    </data>
+    <data name="FeatureReportLink" xml:space="preserve">
+    <value>Report an Issue</value>
+    </data>
+    
+    <!-- Feature Card: Local Events & Announcements -->
+    <data name="FeatureEventsTitle" xml:space="preserve">
+    <value>Local Events and Announcements</value>
+    </data>
+    <data name="FeatureEventsDescription" xml:space="preserve">
+    <value>Stay informed about upcoming events and important community announcements.</value>
+    </data>
+    <data name="FeatureEventsLink" xml:space="preserve">
+    <value>View Events</value>
+    </data>
+    
+    <!-- Feature Card: Service Request Status -->
+    <data name="FeatureStatusTitle" xml:space="preserve">
+    <value>Service Request Status</value>
+    </data>
+    <data name="FeatureStatusDescription" xml:space="preserve">
+    <value>Track the progress of your service requests and get real-time updates.</value>
+    </data>
+    <data name="FeatureStatusLink" xml:space="preserve">
+    <value>Check Status</value>
+    </data>
+    
+    <!-- Coming Soon Message-->
+    <data name="ComingSoonText" xml:preserve="perserve">
+    <value>The Service Request Status feature is coming soon!</value>
+    </data>
+</root>

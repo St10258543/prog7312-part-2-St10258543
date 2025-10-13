@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- <Section: Submitted Reports Page> -->
+  <data name="SubmittedReportsTitle" xml:space="preserve">
+    <value>Izaziso Ezithunyelwe</value>
+  </data>
+
+  <data name="SubmittedReportsDescription" xml:space="preserve">
+    <value>Buka zonke izaziso ezithunyelwe abasebenzisi emphakathini wakho.</value>
+  </data>
+
+  <data name="NoReportsMessage" xml:space="preserve">
+    <value>Akukho zaziso ezithunyelwe okwamanje.</value>
+  </data>
+
+  <!-- <Section: Report Fields> -->
+  <data name="Location" xml:space="preserve">
+    <value>Indawo</value>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>Incazelo</value>
+  </data>
+
+  <data name="DateSubmitted" xml:space="preserve">
+    <value>Usuku Lwethunyelwe</value>
+  </data>
+
+  <!-- <Section: Report Categories> -->
+  <data name="Category_Sanitation" xml:space="preserve">
+    <value>Ukuhlanzeka</value>
+  </data>
+  <data name="Category_Roads" xml:space="preserve">
+    <value>Izindlela</value>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>Izinsiza</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Ezinye</value>
+  </data>
+
+  <!-- <Section: Report Statuses> -->
+  <data name="Status_Pending" xml:space="preserve">
+    <value>Elindile</value>
+  </data>
+  <data name="Status_InProgress" xml:space="preserve">
+    <value>Kuqhubeka</value>
+  </data>
+  <data name="Status_Completed" xml:space="preserve">
+    <value>Kuqediwe</value>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Kwenqatshelwe</value>
+  </data>
+</root>

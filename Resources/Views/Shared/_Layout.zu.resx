@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- <Section: Navbar Items> -->
+  <data name="Navbar_Home" xml:space="preserve">
+    <value>Ikhaya</value>
+    <comment>Navbar link: Home page</comment>
+  </data>
+
+  <data name="Navbar_ReportIssues" xml:space="preserve">
+    <value>Bika Izinkinga</value>
+    <comment>Navbar link: Report Issues page</comment>
+  </data>
+
+  <data name="Navbar_Language" xml:space="preserve">
+    <value>Ulimi</value>
+    <comment>Navbar dropdown or button for language selection</comment>
+  </data>
+
+  <data name="Navbar_Status" xml:space="preserve">
+    <value>Buka Isimo Senkinga</value>
+    <comment>Navbar link: View the status of submitted issues</comment>
+  </data>
+
+  <data name="Navbar_Login" xml:space="preserve">
+    <value>Ngena ngemvume</value>
+    <comment>Navbar link: Login page</comment>
+  </data>
+
+  <data name="Navbar_Register" xml:space="preserve">
+    <value>Bhalisa</value>
+    <comment>Navbar link: Register page</comment>
+  </data>
+
+  <!-- <Section: Footer Items> -->
+  <data name="Footer_Text" xml:space="preserve">
+    <value>Onke Amalungelo Agodliwe</value>
+    <comment>Footer text: All rights reserved statement</comment>
+  </data>
+
+  <data name="Footer_Terms" xml:space="preserve">
+    <value>Imibandela Nemigomo</value>
+    <comment>Footer link: Terms and conditions</comment>
+  </data>
+
+</root>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- Page Titles -->
+  <data name="ReportIssuesTitle" xml:space="preserve">
+    <value>Report Issues</value>
+  </data>
+  <data name="ReportAnIssue" xml:space="preserve">
+    <value>Report an Issue</value>
+  </data>
+
+  <!-- Page Description -->
+  <data name="ReportIssuesDescription" xml:space="preserve">
+    <value>Report any issues like broken streetlights, water leaks, or road damage.</value>
+  </data>
+
+  <!--Report Issues Form -->
+  <data name="Location" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="EnterLocationPlaceholder" xml:space="preserve">
+    <value>Enter location of the issue</value>
+  </data>
+
+  <data name="Category" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="Sanitation" xml:space="preserve">
+    <value>Sanitation</value>
+  </data>
+  <data name="Roads" xml:space="preserve">
+    <value>Roads</value>
+  </data>
+  <data name="Utilities" xml:space="preserve">
+    <value>Utilities</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="DescribeIssuePlaceholder" xml:space="preserve">
+    <value>Describe the issue...</value>
+  </data>
+
+  <data name="AttachMedia" xml:space="preserve">
+    <value>Attach Media (Images/Documents):</value>
+  </data>
+  <data name="ChooseFileButton" xml:space="preserve">
+    <value>Choose file</value>
+  </data>
+  <data name="NoFileChosen" xml:space="preserve">
+    <value>No file chosen</value>
+  </data>
+  <data name="FilesSelected" xml:space="preserve">
+    <value>files selected</value>
+  </data>
+
+  <!-- Report Progress -->
+  <data name="ReportProgress" xml:space="preserve">
+    <value>Report Progress:</value>
+  </data>
+
+  <!-- Navigation Buttons -->
+  <data name="BackButton" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="SubmitReportButton" xml:space="preserve">
+    <value>Submit Report</value>
+  </data>
+
+</root>

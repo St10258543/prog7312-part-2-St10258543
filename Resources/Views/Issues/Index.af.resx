@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- Page Titles -->
+  <data name="ReportIssuesDescription" xml:space="preserve">
+    <value>Rapporteer enige probleme in u buurt soos gebroke straatligte, waterlekke of padskade. Voeg foto's by om dit vinniger op te los.</value>
+  </data>
+
+  <data name="ReportIssuesTitle" xml:space="preserve">
+    <value>Rapporteer Probleme</value>
+  </data>
+
+  <!-- Page Description -->
+  <data name="ReportAnIssue" xml:space="preserve">
+    <value>Rapporteer ’n Probleem</value>
+  </data>
+
+  <!-- Report Issues Form -->
+  <data name="Location" xml:space="preserve">
+    <value>Ligging:</value>
+  </data>
+  <data name="EnterLocationPlaceholder" xml:space="preserve">
+    <value>Voer die ligging van die probleem in</value>
+  </data>
+
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie:</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Kies Kategorie</value>
+  </data>
+  <data name="Sanitation" xml:space="preserve">
+    <value>Sanitasie</value>
+  </data>
+  <data name="Roads" xml:space="preserve">
+    <value>Paaie</value>
+  </data>
+  <data name="Utilities" xml:space="preserve">
+    <value>Nutsdienste</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Ander</value>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>Beskrywing:</value>
+  </data>
+  <data name="DescribeIssuePlaceholder" xml:space="preserve">
+    <value>Beskryf die probleem...</value>
+  </data>
+
+  <data name="AttachMedia" xml:space="preserve">
+    <value>Heg Media aan (Beelde/Dokumente):</value>
+  </data>
+  <data name="ChooseFileButton" xml:space="preserve">
+    <value>Kies lêer</value>
+  </data>
+  <data name="NoFileChosen" xml:space="preserve">
+    <value>Geen lêer gekies nie</value>
+  </data>
+  <data name="FilesSelected" xml:space="preserve">
+    <value>lêers geselekteer</value>
+  </data>
+
+  <!-- Report progress bar -->
+  <data name="ReportProgress" xml:space="preserve">
+    <value>Rapportvordering:</value>
+  </data>
+
+  <!-- Navigation butttons -->
+  <data name="BackButton" xml:space="preserve">
+    <value>Terug</value>
+  </data>
+  <data name="SubmitReportButton" xml:space="preserve">
+    <value>Dien Rapport In</value>
+  </data>
+
+</root>

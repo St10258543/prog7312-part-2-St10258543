@@ -1,0 +1,175 @@
+@model MunicipalityApp.Models.EventsViewModel
+@using MunicipalityApp.Models
+
+@{
+    var events = ViewData["Events"] as List<Events> ?? new List<Events>();
+    var announcements = ViewData["Announcements"] as Dictionary<string, List<Announcements>> ?? new Dictionary<string, List<Announcements>>();
+}
+
+<div class="container mt-5">
+
+    <!-- Search Bar -->
+    <form method="get" asp-controller="Events" asp-action="Index" class="d-flex gap-2 mb-4">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search events..."
+               value="@Model.SearchTerm" />
+
+        <select asp-for="CategoryFilter" asp-items="Model.Categories" class="form-select">
+            <option value="">All Categories</option>
+        </select>
+
+        <input type="date" asp-for="EventDate" class="form-control" />
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Sort Buttons -->
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="date"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-category="@Model.CategoryFilter"
+           asp-route-eventDate="@(Model.EventDate?.ToString("yyyy-MM-dd"))"
+           class="btn btn-outline-primary me-2">
+            Sort by Date
+        </a>
+        <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="category"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-category="@Model.CategoryFilter"
+           asp-route-eventDate="@(Model.EventDate?.ToString("yyyy-MM-dd"))"
+           class="btn btn-outline-primary me-2">
+            Sort by Category
+        </a>
+        <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="title"
+           asp-route-searchTerm="@Model.SearchTerm"
+           asp-route-category="@Model.CategoryFilter"
+           asp-route-eventDate="@(Model.EventDate?.ToString("yyyy-MM-dd"))"
+           class="btn btn-outline-primary">
+            Sort by Title
+        </a>
+    </div>
+
+    <!-- Events Section -->
+    <h2 class="mb-4 text-primary fw-bold border-bottom pb-2">Upcoming Events</h2>
+
+    @if (events.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var e in events)
+            {
+                <div class="col">
+                    <div class="card shadow-sm border-0 rounded-4 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary fw-bold">@e.Title</h5>
+                            <p class="card-subtitle text-muted mb-2">
+                                @e.Date.ToString("MMMM dd, yyyy") &nbsp;|&nbsp; @e.Category
+                            </p>
+                            <p class="card-text text-secondary">@e.Description</p>
+                        </div>
+                        <div class="card-footer bg-light border-0 text-end">
+                            <small class="text-muted">Created by Municipality</small>
+                        </div>
+                        <a asp-controller="Events" asp-action="ViewEvent" asp-route-id="@e.Id"
+                           class="btn btn-sm btn-outline-primary mt-2">View Details</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            No upcoming events available.
+        </div>
+    }
+
+    <hr class="my-5" />
+
+    <!-- Announcements Section -->
+    <h2 class="mb-4 text-success fw-bold border-bottom pb-2">Announcements</h2>
+
+    @if (announcements.Any())
+    {
+        foreach (var category in announcements.Keys)
+        {
+            <div class="mb-4">
+                <h4 class="fw-semibold text-success">@category</h4>
+                <div class="list-group shadow-sm rounded-4">
+                    @foreach (var a in announcements[category])
+                    {
+                        <div class="list-group-item list-group-item-action flex-column align-items-start border-0 border-bottom">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@a.Title</h5>
+                                <small class="text-muted">@a.DatePosted.ToString("MMM dd, yyyy")</small>
+                            </div>
+                            <p class="mb-1 text-secondary">@a.Message</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            No announcements available.
+        </div>
+        <hr class="my-5" />
+    }
+
+    <!-- Recently Viewed Events -->
+    <h2 class="mb-4 text-warning fw-bold border-bottom pb-2">Recently Viewed Events</h2>
+
+    @{
+        var recentlyViewed = MunicipalityApp.Data.MunicipalityData.RecentlyViewedEvents.ToList();
+    }
+
+    @if (recentlyViewed.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var ev in recentlyViewed)
+            {
+                <div class="col">
+                    <div class="card border-warning shadow-sm rounded-4 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning">@ev.Title</h5>
+                            <p class="card-subtitle text-muted mb-2">
+                                @ev.Date.ToString("MMMM dd, yyyy") | @ev.Category
+                            </p>
+                            <p class="card-text text-secondary">@ev.Description</p>
+                        </div>
+                        <div class="card-footer bg-light text-end border-0">
+                            <small class="text-muted">Recently viewed</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-light text-center text-muted">
+            No events viewed recently.
+        </div>
+    }
+
+    @if (ViewBag.Recommended != null && (ViewBag.Recommended as List<MunicipalityApp.Models.Events>).Any())
+{
+    <hr />
+    <h3>Recommended for You</h3>
+    <div class="row">
+        @foreach (var rec in ViewBag.Recommended as List<MunicipalityApp.Models.Events>)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card border-info shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@rec.Title</h5>
+                        <p class="card-text">@rec.Description</p>
+                        <p><strong>Date:</strong> @rec.Date.ToString("MMM dd, yyyy")</p>
+                        <span class="badge bg-info text-dark">@rec.Category</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+</div>
+

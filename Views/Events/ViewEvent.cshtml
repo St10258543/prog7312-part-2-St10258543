@@ -1,0 +1,10 @@
+@model MunicipalityApp.Models.Events
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+        <h2 class="text-primary">@Model.Title</h2>
+        <p class="text-muted">@Model.Date.ToString("MMMM dd, yyyy") | @Model.Category</p>
+        <p>@Model.Description</p>
+        <a asp-controller="Events" asp-action="Index" class="btn btn-outline-primary mt-3">Back to Events</a>
+    </div>
+</div>

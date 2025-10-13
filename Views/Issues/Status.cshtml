@@ -1,0 +1,63 @@
+@model List<MunicipalityApp.Models.Issues> 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@{
+   
+    ViewData["Title"] = Localizer["SubmittedReportsTitle"];
+}
+
+<div class="view-hero-section" style="background-image: url('/Images/status-bg.jpg');">
+    <div class="overlay"></div> 
+    <div class="view-hero-content">
+        
+        <h1 class="app-title">@Localizer["SubmittedReportsTitle"]</h1>
+       
+        <p class="app-description">@Localizer["SubmittedReportsDescription"]</p>
+    </div>
+</div>
+
+
+@if (!Model.Any())
+{
+    
+    <p class="no-reports">@Localizer["NoReportsMessage"]</p>
+}
+else
+{
+
+    <div class="reports-container">
+        @foreach (var report in Model)
+        {
+            <div class="report-card">
+               
+                <div class="report-header">
+                    <span class="report-category">
+                        @Localizer["Category_" + report.Category]
+                    </span>
+                    <span class="report-status @report.Status.Replace(" ", "-").ToLower()">
+                        @Localizer["Status_" + report.Status.Replace(" ", "")]
+                    </span>
+                </div>
+
+                
+                <p><strong>@Localizer["Location"]:</strong> @report.Location</p>
+                <p><strong>@Localizer["Description"]:</strong> @report.Description</p>
+                <p><strong>@Localizer["DateSubmitted"]:</strong> 
+                    @report.DateSubmitted.ToString("dd MMM yyyy, HH:mm")
+                </p>
+
+               
+                @if (!string.IsNullOrEmpty(report.MediaFileName))
+                {
+                    var mediaFiles = report.MediaFileName.Split(',');
+                    <div class="report-media">
+                        @foreach (var file in mediaFiles)
+                        {
+                            <img src="~/uploads/@file" alt="Media" />
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

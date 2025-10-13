@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- Submitted Reports Page -->
+  <data name="SubmittedReportsTitle" xml:space="preserve">
+    <value>Ingediende Verslae</value>
+    <comment>// Title displayed on the submitted reports page</comment>
+  </data>
+  
+  <data name="SubmittedReportsDescription" xml:space="preserve">
+    <value>Kyk na al die verslae wat deur gebruikers in jou gemeenskap ingedien is.</value>
+    <comment>// Description text explaining the submitted reports page</comment>
+  </data>
+
+  <data name="NoReportsMessage" xml:space="preserve">
+    <value>Geen verslae is nog ingedien nie.</value>
+    <comment>// Message displayed when there are no submitted reports</comment>
+  </data>
+
+  <!-- Report Fields -->
+  <data name="Location" xml:space="preserve">
+    <value>Ligging</value>
+    <comment>// Label for report location field</comment>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>Beskrywing</value>
+    <comment>// Label for report description field</comment>
+  </data>
+
+  <data name="DateSubmitted" xml:space="preserve">
+    <value>Datum van Indiening</value>
+    <comment>// Label showing the date the report was submitted</comment>
+  </data>
+
+  <!-- Report Categories -->
+  <data name="Category_Sanitation" xml:space="preserve">
+    <value>Skoonmaak</value>
+    <comment>// Category option: Sanitation</comment>
+  </data>
+  <data name="Category_Roads" xml:space="preserve">
+    <value>Weg</value>
+    <comment>// Category option: Roads</comment>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>Fasiliteite</value>
+    <comment>// Category option: Utilities</comment>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Ander</value>
+    <comment>// Category option: Other</comment>
+  </data>
+
+  <!-- Report Statuses -->
+  <data name="Status_Pending" xml:space="preserve">
+    <value>Hangende</value>
+    <comment>// Status: Pending</comment>
+  </data>
+  <data name="Status_InProgress" xml:space="preserve">
+    <value>Besig</value>
+    <comment>// Status: In Progress</comment>
+  </data>
+  <data name="Status_Completed" xml:space="preserve">
+    <value>Voltooi</value>
+    <comment>// Status: Completed</comment>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Verwerp</value>
+    <comment>// Status: Rejected</comment>
+  </data>
+</root>

@@ -1,0 +1,55 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["HomePageTitle"];
+}
+
+<!-- <Section: Hero Section> -->
+<div class="hero-section">
+    <!-- Background video -->
+    <video class="hero-video" autoplay loop muted playsinline>
+        <source src="~/Videos/muncipality-original.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay for better text readability -->
+    <div class="overlay"></div>
+
+    <!-- Hero content: App title and description -->
+    <div class="hero-content">
+        <h1 class="app-title">@Localizer["AppName"]</h1>
+        <p class="app-description">@Localizer["HomePageDescription"]</p>
+    </div>
+</div> 
+
+<!-- <Section: Features Section> -->
+<div class="features-section">
+
+    <!-- Feature: Report Issues -->
+    <div class="feature-card">
+        <h3>@Localizer["FeatureReportTitle"]</h3>
+        <p>@Localizer["FeatureReportDescription"]</p>
+        <a href="@Url.Action("Index", "Issues")" class="feature-link">
+            @Localizer["FeatureReportLink"]
+        </a>
+    </div>
+
+    <!-- Feature: Local Events and Announcements -->
+    <div class="feature-card">
+        <h3>@Localizer["FeatureEventsTitle"]</h3>
+        <p>@Localizer["FeatureEventsDescription"]</p>
+        <a href="@Url.Action("Index","Events")" class="feature-link">
+            @Localizer["FeatureEventsLink"]
+        </a>
+    </div>
+
+    <!-- Feature: Status (Disabled / Coming Soon) -->
+    <div class="feature-card disabled">
+        <h3>@Localizer["FeatureStatusTitle"]</h3>
+        <p>@Localizer["FeatureStatusDescription"]</p>
+        <a href="#" class="feature-link disabled">
+            @Localizer["FeatureStatusLink"]
+        </a>
+        <p class="coming-soon-text">@Localizer["ComingSoonText"]</p>
+    </div>
+
+</div>

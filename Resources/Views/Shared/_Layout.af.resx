@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- <Section: Navbar Items> -->
+  <data name="Navbar_Home" xml:space="preserve">
+    <value>Tuis</value>
+    <comment>Navbar link: Home page</comment>
+  </data>
+
+  <data name="Navbar_ReportIssues" xml:space="preserve">
+    <value>Rapporteer Probleme</value>
+    <comment>Navbar link: Report Issues page</comment>
+  </data>
+
+  <data name="Navbar_Language" xml:space="preserve">
+    <value>Taal</value>
+    <comment>Navbar dropdown or button for language selection</comment>
+  </data>
+
+  <data name="Navbar_Status" xml:space="preserve">
+    <value>Bekyk Klagstatus</value>
+    <comment>Navbar link: View complaint/report status</comment>
+  </data>
+
+  <data name="Navbar_Login" xml:space="preserve">
+    <value>Aanmelding</value>
+    <comment>Navbar link: Login page</comment>
+  </data>
+
+  <data name="Navbar_Register" xml:space="preserve">
+    <value>Registreer</value>
+    <comment>Navbar link: Register page</comment>
+  </data>
+
+  <!-- <Section: Footer Items> -->
+  <data name="Footer_Text" xml:space="preserve">
+    <value>Alle Regte Voorbehou</value>
+    <comment>Footer text: All rights reserved</comment>
+  </data>
+
+  <data name="Footer_Terms" xml:space="preserve">
+    <value>Terme &amp; Voorwaardes</value>
+    <comment>Footer link: Terms and conditions</comment>
+  </data>
+
+</root>

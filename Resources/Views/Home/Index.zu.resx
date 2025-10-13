@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Home Page -->
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Ikhasi Elikhulu</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Uhlelo Lomkhandlu</value>
+  </data>
+  <data name="HomePageDescription" xml:space="preserve">
+    <value>Joyina umphakathi wakho ukuze wenze umehluko! Nge-Uhlelo Lomkhandlu, ungabika izinkinga zomphakathi wakho ngokushesha, uhlale unolwazi ngeziganeko nezaziso, futhi ulandelele izicelo zakho zesevisi.</value>
+  </data>
+
+  <!-- Navbar -->
+  <data name="NavHome" xml:space="preserve">
+    <value>Ikhaya</value>
+  </data>
+  <data name="NavReportIssues" xml:space="preserve">
+    <value>Bika Izinkinga</value>
+  </data>
+  <data name="NavEvents" xml:space="preserve">
+    <value>Iziganeko Zasendaweni  Nezaziso</value>
+  </data>
+  <data name="NavRequests" xml:space="preserve">
+    <value>Isimo Sezicelo Zesevisi</value>
+  </data>
+  
+  <!-- Feature Card: Report Issues -->
+  <data name="FeatureReportTitle" xml:space="preserve">
+    <value>Bika Izinkinga</value>
+  </data>
+  <data name="FeatureReportDescription" xml:space="preserve">
+    <value>Bika ngokushesha izinkinga zomkhandlu ezifana nemigodi, ukuvuza kwamanzi, nokuphazamiseka kukagesi.</value>
+  </data>
+  <data name="FeatureReportLink" xml:space="preserve">
+    <value>Bika Inkinga</value>
+  </data>
+
+  <!-- Feature Card: Local Events & Announcements -->
+  <data name="FeatureEventsTitle" xml:space="preserve">
+    <value>Iziganeko Zasendaweni  Nezaziso</value>
+  </data>
+  <data name="FeatureEventsDescription" xml:space="preserve">
+    <value>Hlala unolwazi ngeziganeko ezizayo nezaziso ezibalulekile zomphakathi.</value>
+  </data>
+  <data name="FeatureEventsLink" xml:space="preserve">
+    <value>Buka Iziganeko</value>
+  </data>
+
+  <!-- Feature Card: Service Request Status -->
+  <data name="FeatureStatusTitle" xml:space="preserve">
+    <value>Isimo Sezicelo Zesevisi</value>
+  </data>
+  <data name="FeatureStatusDescription" xml:space="preserve">
+    <value>Landela inqubekela phambili yezicelo zakho zesevisi bese uthola izibuyekezo ngesikhathi sangempela.</value>
+  </data>
+  <data name="FeatureStatusLink" xml:space="preserve">
+    <value>Bheka Isimo</value>
+  </data>
+
+  <!-- Coming Soon Message -->
+  <data name="ComingSoonText" xml:space="preserve">
+    <value>Izici Zeziganeko Nezicelo zizofika maduze!</value>
+  </data>
+</root>

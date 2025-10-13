@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+  <!-- <Section: Submitted Reports Page> -->
+  <data name="SubmittedReportsTitle" xml:space="preserve">
+    <value>Submitted Reports</value>
+  </data>
+
+  <data name="SubmittedReportsDescription" xml:space="preserve">
+    <value>View all reports submitted by users in your community.</value>
+  </data>
+
+  <data name="NoReportsMessage" xml:space="preserve">
+    <value>No reports have been submitted yet.</value>
+  </data>
+
+  <!-- <Section: Report Fields> -->
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+
+  <data name="DateSubmitted" xml:space="preserve">
+    <value>Date Submitted</value>
+  </data>
+
+  <!-- <Section: Report Categories> -->
+  <data name="Category_Sanitation" xml:space="preserve">
+    <value>Sanitation</value>
+  </data>
+  <data name="Category_Roads" xml:space="preserve">
+    <value>Roads</value>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>Utilities</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+
+  <!-- <Section: Report Statuses> -->
+  <data name="Status_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Status_InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Status_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+</root>
