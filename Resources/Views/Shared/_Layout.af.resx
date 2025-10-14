@@ -12,6 +12,11 @@
     <comment>Navbar link: Report Issues page</comment>
   </data>
 
+  <data name="Navbar_Events" xml:space="preserve">
+  <value>Lokale Gebeure en Kennisgewings</value>
+  <comment>Navbar link: View events</comment>
+  </data>
+  
   <data name="Navbar_Language" xml:space="preserve">
     <value>Taal</value>
     <comment>Navbar dropdown or button for language selection</comment>

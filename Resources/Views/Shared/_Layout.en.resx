@@ -22,6 +22,11 @@
     <comment>Navbar link: View the status of submitted issues</comment>
   </data>
 
+  <data name="Navbar_Events" xml:space="preserve">
+  <value>Local Events and Announcements</value>
+  <comment>Navbar link: View events</comment>
+  </data>
+
   <data name="Navbar_Login" xml:space="preserve">
     <value>Login</value>
     <comment>Navbar link: Login page</comment>

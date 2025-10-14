@@ -10,28 +10,35 @@ namespace MunicipalityApp.Controllers
 {
     public class EventsController : Controller
     {
-        // Available categories for dropdown
-        private readonly List<string> _categoryOptions = new List<string> 
-        { 
-            "Community", "Government", "Education", "Environment", "Health", "Safety", "Sports", "Infrastructure", "Culture", "Technology", "Transport", "Employment" 
+       
+        // List of available event categories for dropdown selection
+        private readonly List<string> _categoryOptions = new()
+        {
+            "Community", "Government", "Education", "Environment", "Health",
+            "Safety", "Sports", "Infrastructure", "Culture", "Technology",
+            "Transport", "Employment"
         };
 
+        
+        // GET: /Events/Index
         [HttpGet]
         public IActionResult Index(
-            string? searchTerm, 
-            string? CategoryFilter, 
-            DateTime? eventDate, 
+            string? searchTerm,
+            string? CategoryFilter,
+            DateTime? eventDate,
             string? sortBy)
         {
-            // Get all events from the queue
+            // Retrieve all events from the queue
             var events = MunicipalityData.EventsQueue?
                 .UnorderedItems
                 .Select(e => e.Element)
                 .ToList() ?? new List<Events>();
 
-            var announcements = MunicipalityData.AnnouncementsByCategory ?? new Dictionary<string, List<Announcements>>();
+            // Retrieve announcements
+            var announcements = MunicipalityData.AnnouncementsByCategory 
+                                ?? new Dictionary<string, List<Announcements>>();
 
-            // ===== SEARCH =====
+            // Search functionality
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 events = events
@@ -40,11 +47,12 @@ namespace MunicipalityApp.Controllers
                              || e.Category.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                // Log searched categories
+                // Log user search for analytics or recommendations
                 MunicipalityData.LogUserSearchFromQuery(searchTerm);
             }
 
-            // ===== FILTER =====
+        
+            // Filter by category
             if (!string.IsNullOrWhiteSpace(CategoryFilter))
             {
                 events = events
@@ -52,14 +60,15 @@ namespace MunicipalityApp.Controllers
                     .ToList();
             }
 
+            // Filter by event date
             if (eventDate.HasValue)
             {
                 events = events
                     .Where(e => e.Date.Date == eventDate.Value.Date)
                     .ToList();
             }
-
-            // ===== SORT =====
+            // Sorting logic
+            // ==========================
             events = sortBy?.ToLower() switch
             {
                 "date" => events.OrderBy(e => e.Date).ToList(),
@@ -68,13 +77,15 @@ namespace MunicipalityApp.Controllers
                 _ => events.OrderBy(e => e.Date).ToList()
             };
 
-            // ===== RECOMMENDATIONS =====
-            var recommendations = MunicipalityData.GetRecommendedEvents(5); // configurable count
-
-            // ===== RECENTLY VIEWED =====
+            // ==========================
+            // Recommendations & Recently Viewed
+            // ==========================
+            var recommendations = MunicipalityData.GetRecommendedEvents(5); // configurable number of recommendations
             var recentlyViewed = MunicipalityData.RecentlyViewedEvents.ToList();
 
-            // Build ViewModel
+            // ==========================
+            // Build the ViewModel
+            // ==========================
             var model = new EventsViewModel
             {
                 SearchTerm = searchTerm,
@@ -83,7 +94,9 @@ namespace MunicipalityApp.Controllers
                 Categories = new SelectList(_categoryOptions, CategoryFilter)
             };
 
-            // Pass data to view via ViewData/ViewBag
+            // ==========================
+            // Pass data to View
+            // ==========================
             ViewData["Events"] = events;
             ViewData["Announcements"] = announcements;
             ViewData["RecentlyViewed"] = recentlyViewed;
@@ -93,24 +106,37 @@ namespace MunicipalityApp.Controllers
             return View(model);
         }
 
+        // ==========================
+        // GET: /Events/ViewEvent/{id}
+        // ==========================
         [HttpGet]
         public IActionResult ViewEvent(int id)
         {
-            var allEvents = MunicipalityData.EventsQueue?.UnorderedItems.Select(e => e.Element).ToList() ?? new List<Events>();
-            var ev = allEvents.FirstOrDefault(e => e.Id == id);
+            // Retrieve all events
+            var allEvents = MunicipalityData.EventsQueue?
+                .UnorderedItems
+                .Select(e => e.Element)
+                .ToList() ?? new List<Events>();
 
-            if (ev != null)
+            // Find the event by ID
+            var selectedEvent = allEvents.FirstOrDefault(e => e.Id == id);
+
+            // Track as recently viewed
+            if (selectedEvent != null)
             {
-                MunicipalityData.RecentlyViewedEvents.Push(ev);
+                MunicipalityData.RecentlyViewedEvents.Push(selectedEvent);
             }
 
-            return View(ev);
+            return View(selectedEvent);
         }
 
+        // ==========================
+        // GET: /Events/Search
+        // Redirects to Index with search query
+        // ==========================
         [HttpGet]
         public IActionResult Search(string query)
         {
-            // Redirect to Index with search query
             return RedirectToAction("Index", new { searchTerm = query });
         }
     }

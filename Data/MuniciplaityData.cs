@@ -13,12 +13,15 @@ namespace MunicipalityApp.Data
         // Track user search interests
         public static Dictionary<string, int> UserSearchPreferences { get; } = new();
 
+        // Stack to track recently viewed events
+        public static Stack<Events> RecentlyViewedEvents { get; } = new();
+
+
         // Sets to keep unique categories
         public static HashSet<string> EventCategories { get; } = new();
         public static HashSet<string> AnnouncementCategories { get; } = new();
-        public static Stack<Events> RecentlyViewedEvents { get; } = new();
 
-        // ✅ Constructor (runs once at app startup)
+        // Constructor (runs once at app startup)
         static MunicipalityData()
         {
             // ==============================
@@ -50,9 +53,8 @@ namespace MunicipalityApp.Data
                 EventCategories.Add(ev.Category);
             }
 
-            // ==============================
+        
             // Seed sample announcements
-            // ==============================
             var announcements = new List<Announcements>
             {
                 new() { Id = 1, Title = "Water Disruption", Message = "Water supply will be disrupted in the downtown area on Oct 7.", DatePosted = DateTime.Now, Category = "Service Update" },
@@ -82,7 +84,7 @@ namespace MunicipalityApp.Data
             }
         }
 
-        // ✅ Logs user search preferences
+        // Logs user search preferences
         public static void LogUserSearch(string category)
         {
             if (string.IsNullOrWhiteSpace(category))
@@ -93,6 +95,7 @@ namespace MunicipalityApp.Data
             else
                 UserSearchPreferences[category] = 1;
         }
+
         // Logs all categories found in a search query
 public static void LogUserSearchFromQuery(string query)
 {
@@ -110,7 +113,7 @@ public static void LogUserSearchFromQuery(string query)
 }
 
 
-        // ✅ Retrieves recommended events based on searches
+        // Retrieves recommended events based on searches
         public static List<Events> GetRecommendedEvents(int count = 3)
         {
             if (UserSearchPreferences.Count == 0)

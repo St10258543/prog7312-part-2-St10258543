@@ -2,28 +2,34 @@
 @using MunicipalityApp.Models
 
 @{
+    // Retrieve event and announcement data from ViewData.
     var events = ViewData["Events"] as List<Events> ?? new List<Events>();
     var announcements = ViewData["Announcements"] as Dictionary<string, List<Announcements>> ?? new Dictionary<string, List<Announcements>>();
 }
 
 <div class="container mt-5">
 
-    <!-- Search Bar -->
+    <!-- Search and Filter Section -->
     <form method="get" asp-controller="Events" asp-action="Index" class="d-flex gap-2 mb-4">
-        <input type="text" name="searchTerm" class="form-control" placeholder="Search events..."
-               value="@Model.SearchTerm" />
+        
+        <!-- Keyword search -->
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search events..." value="@Model.SearchTerm" />
 
+        <!-- Category filter -->
         <select asp-for="CategoryFilter" asp-items="Model.Categories" class="form-select">
             <option value="">All Categories</option>
         </select>
 
+        <!-- Filter by date -->
         <input type="date" asp-for="EventDate" class="form-control" />
 
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
-    <!-- Sort Buttons -->
+    <!-- Sorting options -->
     <div class="d-flex justify-content-end mb-3">
+        
+        <!-- Sort by Date -->
         <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="date"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-category="@Model.CategoryFilter"
@@ -31,6 +37,8 @@
            class="btn btn-outline-primary me-2">
             Sort by Date
         </a>
+
+        <!-- Sort by Category -->
         <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="category"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-category="@Model.CategoryFilter"
@@ -38,6 +46,8 @@
            class="btn btn-outline-primary me-2">
             Sort by Category
         </a>
+
+        <!-- Sort by Title -->
         <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="title"
            asp-route-searchTerm="@Model.SearchTerm"
            asp-route-category="@Model.CategoryFilter"
@@ -47,7 +57,7 @@
         </a>
     </div>
 
-    <!-- Events Section -->
+    <!-- Upcoming events -->
     <h2 class="mb-4 text-primary fw-bold border-bottom pb-2">Upcoming Events</h2>
 
     @if (events.Any())
@@ -67,6 +77,7 @@
                         <div class="card-footer bg-light border-0 text-end">
                             <small class="text-muted">Created by Municipality</small>
                         </div>
+
                         <a asp-controller="Events" asp-action="ViewEvent" asp-route-id="@e.Id"
                            class="btn btn-sm btn-outline-primary mt-2">View Details</a>
                     </div>
@@ -76,6 +87,7 @@
     }
     else
     {
+        // No events available message
         <div class="alert alert-info text-center">
             No upcoming events available.
         </div>
@@ -83,15 +95,16 @@
 
     <hr class="my-5" />
 
-    <!-- Announcements Section -->
+    <!-- Announcements  -->
     <h2 class="mb-4 text-success fw-bold border-bottom pb-2">Announcements</h2>
 
     @if (announcements.Any())
     {
-        foreach (var category in announcements.Keys)
+        @foreach (var category in announcements.Keys)
         {
             <div class="mb-4">
                 <h4 class="fw-semibold text-success">@category</h4>
+
                 <div class="list-group shadow-sm rounded-4">
                     @foreach (var a in announcements[category])
                     {
@@ -109,6 +122,7 @@
     }
     else
     {
+        // No announcements available message 
         <div class="alert alert-warning text-center">
             No announcements available.
         </div>
@@ -146,30 +160,32 @@
     }
     else
     {
+        // No recently viewed events
         <div class="alert alert-light text-center text-muted">
             No events viewed recently.
         </div>
     }
 
+    <!--Recommended Events Section -->
     @if (ViewBag.Recommended != null && (ViewBag.Recommended as List<MunicipalityApp.Models.Events>).Any())
-{
-    <hr />
-    <h3>Recommended for You</h3>
-    <div class="row">
-        @foreach (var rec in ViewBag.Recommended as List<MunicipalityApp.Models.Events>)
-        {
-            <div class="col-md-4 mb-3">
-                <div class="card border-info shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">@rec.Title</h5>
-                        <p class="card-text">@rec.Description</p>
-                        <p><strong>Date:</strong> @rec.Date.ToString("MMM dd, yyyy")</p>
-                        <span class="badge bg-info text-dark">@rec.Category</span>
+    {
+        <hr />
+        <h3>Recommended for You</h3>
+
+        <div class="row">
+            @foreach (var rec in ViewBag.Recommended as List<MunicipalityApp.Models.Events>)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card border-info shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@rec.Title</h5>
+                            <p class="card-text">@rec.Description</p>
+                            <p><strong>Date:</strong> @rec.Date.ToString("MMM dd, yyyy")</p>
+                            <span class="badge bg-info text-dark">@rec.Category</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-}
+            }
+        </div>
+    }
 </div>
-

@@ -29,10 +29,10 @@
     <value>Select Category</value>
   </data>
   <data name="Sanitation" xml:space="preserve">
-    <value>Sanitation</value>
+    <value>Water and Sanitation</value>
   </data>
   <data name="Roads" xml:space="preserve">
-    <value>Roads</value>
+    <value>Roads and Transport</value>
   </data>
   <data name="Utilities" xml:space="preserve">
     <value>Utilities</value>

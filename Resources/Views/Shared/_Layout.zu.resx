@@ -22,6 +22,11 @@
     <comment>Navbar link: View the status of submitted issues</comment>
   </data>
 
+  <data name="Navbar_Events" xml:space="preserve">
+  <value>Imicimbi Yendawo Nezaziso</value>
+  <comment>Navbar link: View Events</comment>
+  </data>
+
   <data name="Navbar_Login" xml:space="preserve">
     <value>Ngena ngemvume</value>
     <comment>Navbar link: Login page</comment>
