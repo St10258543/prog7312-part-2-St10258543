@@ -31,7 +31,7 @@ To set up and run the MunicipalityApp locally, ensure you have:
 
 1. **Clone the Repository:**  
    ```bash
-   git clone https://github.com/VCWVL/prog7312-part-1-St10258543.git
+   git clone https://github.com/St10258543/prog7312-part-2-St10258543 
 
 ### Installation Steps
 
@@ -66,13 +66,13 @@ The application relies on custom-built data structures for in-memory management:
 
 * Custom Linked List: Stores municipal reports for fast insertion, deletion, and traversal.
 
-* Custom Priority Queue (CustomPriorityQueue<Events>): Stores events sorted by date for easy retrieval of upcoming events.
+* Custom Priority Queue : Stores events sorted by date for easy retrieval of upcoming events.
 
-* Custom Stack (CustomStack<Events>): Tracks recently viewed events for personalized recommendations.
+* Custom Stack : Tracks recently viewed events for personalized recommendations.
 
-* Custom Dictionary (CustomDictionary<TKey, TValue>): Groups announcements by category and logs user search preferences.
+* Custom Dictionary : Groups announcements by category and logs user search preferences.
 
-* Custom HashSet (CustomHashSet<string>): Maintains unique event and announcement categories.
+* Custom HashSet : Maintains unique event and announcement categories.
 
 * These structures allow efficient in-memory operations, faster filtering and sorting, and the implementation of features like event recommendations without querying the database repeatedly.
 
@@ -112,7 +112,7 @@ The application relies on custom-built data structures for in-memory management:
 * * **Search & Filtering:**
 * Search events by title, description, or category; filter by date or category.
 
-* * * **Recommendations:**
+*  **Recommendations:**
 * System recommends events based on user search history and frequently viewed categories.
 
 * **Media Upload:**
