@@ -103,7 +103,7 @@ namespace MunicipalityApp.Data
         public static void AddAnnouncement(Announcements announcement)
         {
             if (announcement == null || string.IsNullOrEmpty(announcement.Category))
-                return; // Skip invalid announcement
+                return; 
 
             bool exists = false;
 
@@ -112,7 +112,7 @@ namespace MunicipalityApp.Data
             {
                 if (key.Equals(announcement.Category, StringComparison.OrdinalIgnoreCase))
                 {
-                    AnnouncementsByCategory[key].Add(announcement); // Add to existing list
+                    AnnouncementsByCategory[key].Add(announcement);
                     exists = true;
                     break;
                 }
@@ -156,7 +156,7 @@ namespace MunicipalityApp.Data
         public static void LogUserSearch(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
-                return; // Ignore empty searches
+                return; 
 
             bool exists = false;
 
@@ -179,7 +179,7 @@ namespace MunicipalityApp.Data
         public static void LogUserCategory(string? category)
         {
             if (string.IsNullOrWhiteSpace(category))
-                return; // Ignore empty category
+                return; 
 
             bool exists = false;
 
@@ -204,8 +204,7 @@ namespace MunicipalityApp.Data
             var recommended = new List<Events>();
 
             if (UserSearchPreferences.Count == 0)
-                return recommended; // No recommendations if no user data
-
+                return recommended; 
             // Determine top category by highest count
             string? topCategory = null;
             int highestValue = int.MinValue;

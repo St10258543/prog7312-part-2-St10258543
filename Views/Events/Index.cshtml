@@ -16,10 +16,10 @@
         { "Culture", "warning" },       // yellow
         { "Safety", "danger" },         // red
         { "Health", "secondary" },      // grey
-        { "Education", "teal" },        // teal (custom CSS)
-        { "Employment", "purple" },     // custom purple
-        { "Technology", "indigo" },     // custom indigo
-        { "Infrastructure", "brown" }   // custom brown
+        { "Education", "teal" },        // teal
+        { "Employment", "purple" },     // purple
+        { "Technology", "indigo" },     // indigo
+        { "Infrastructure", "brown" }   // brown
     };
 }
 
@@ -33,6 +33,7 @@
         </select>
         <input type="date" asp-for="EventDate" class="form-control" />
         <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-controller="Events" asp-action="Index" class="btn btn-clear">Clear Filter</a>
     </form>
 
     <!-- Sorting options -->
@@ -65,7 +66,6 @@
                 <div class="col">
                     <div class="card shadow-sm border-0 rounded-4 h-100">
                         <div class="card-body">
-                            <!-- Title with category color -->
                             <h5 class="card-title text-@((categoryColors.ContainsKey(e.Category)) ? categoryColors[e.Category] : "primary") fw-bold">@e.Title</h5>
 
                             <p class="card-subtitle mb-2">
@@ -123,9 +123,8 @@
         <hr class="my-5" />
     }
 
-    <!-- Recently Viewed Events -->
-    <h2 class="mb-4 text-warning fw-bold border-bottom pb-2">Recently Viewed Events</h2>
-
+   <!-- Recently Viewed Events - PURPLE (only heading and borders) -->
+    <h2 class="mb-4 text-purple fw-bold border-bottom pb-2">Recently Viewed Events</h2>
     @{
         var recentlyViewed = MunicipalityApp.Data.MunicipalityData.RecentlyViewedEvents.ToList();
     }
@@ -136,12 +135,12 @@
             @foreach (var ev in recentlyViewed)
             {
                 <div class="col">
-                    <div class="card border-warning shadow-sm rounded-4 h-100">
+                    <div class="card border-purple shadow-sm rounded-4 h-100">
                         <div class="card-body">
-                            <h5 class="card-title text-@((categoryColors.ContainsKey(ev.Category)) ? categoryColors[ev.Category] : "warning")">@ev.Title</h5>
+                            <h5 class="card-title text-@((categoryColors.ContainsKey(ev.Category)) ? categoryColors[ev.Category] : "primary") fw-bold">@ev.Title</h5>
                             <p class="card-subtitle mb-2">
                                 @ev.Date.ToString("MMMM dd, yyyy") &nbsp;|&nbsp;
-                                <span class="badge bg-@((categoryColors.ContainsKey(ev.Category)) ? categoryColors[ev.Category] : "warning")">@ev.Category</span>
+                                <span class="badge bg-@((categoryColors.ContainsKey(ev.Category)) ? categoryColors[ev.Category] : "primary")">@ev.Category</span>
                             </p>
                             <p class="card-text text-secondary">@ev.Description</p>
                         </div>
@@ -158,22 +157,27 @@
         <div class="alert alert-light text-center text-muted">No events viewed recently.</div>
     }
 
-    <!-- Recommended Events -->
+     <!-- Recommended Events - GOLD (only heading and borders) -->
     @if (ViewBag.Recommended != null && (ViewBag.Recommended as List<Events>).Any())
     {
-        <hr />
-        <h3>Recommended for You</h3>
+        <hr class="my-5" />
+        <h2 class="mb-4 fw-bold border-bottom pb-2" style="color: var(--highlight-color) !important;">Recommended for You</h2>
 
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach (var rec in ViewBag.Recommended as List<Events>)
             {
-                <div class="col-md-4 mb-3">
-                    <div class="card border-info shadow-sm">
+                <div class="col">
+                    <div class="card shadow-sm rounded-4 h-100" style="border-color: var(--highlight-color) !important;">
                         <div class="card-body">
-                            <h5 class="card-title text-@((categoryColors.ContainsKey(rec.Category)) ? categoryColors[rec.Category] : "info")">@rec.Title</h5>
-                            <p class="card-text">@rec.Description</p>
-                            <p><strong>Date:</strong> @rec.Date.ToString("MMM dd, yyyy")</p>
-                            <span class="badge bg-@((categoryColors.ContainsKey(rec.Category)) ? categoryColors[rec.Category] : "info")">@rec.Category</span>
+                            <h5 class="card-title text-@((categoryColors.ContainsKey(rec.Category)) ? categoryColors[rec.Category] : "primary") fw-bold">@rec.Title</h5>
+                            <p class="card-text text-secondary">@rec.Description</p>
+                            <p class="card-subtitle mb-2">
+                                @rec.Date.ToString("MMMM dd, yyyy") &nbsp;|&nbsp;
+                                <span class="badge bg-@((categoryColors.ContainsKey(rec.Category)) ? categoryColors[rec.Category] : "primary")">@rec.Category</span>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-light border-0 text-end">
+                            <small class="text-muted">Recommended</small>
                         </div>
                     </div>
                 </div>

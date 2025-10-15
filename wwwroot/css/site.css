@@ -623,3 +623,20 @@ body {
 .text-purple { color: #6f42c1 !important; }
 .text-indigo { color: #6610f2 !important; }
 .text-brown { color: #8B4513 !important; }
+
+/* Clear button styling */
+.btn-clear {
+    background-color: #808080 !important; /* Medium grey */
+    color: white !important;
+    border: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-clear:hover {
+    background-color: #A0A0A0 !important; /* Lighter grey on hover */
+    color: white !important;
+}
