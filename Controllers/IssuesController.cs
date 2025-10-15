@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MunicipalityApp.Models;
 using MunicipalityApp.Data;
-using MunicipalityApp.DataStructures; // <- for CustomIssues
+using MunicipalityApp.DataStructures;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +19,7 @@ namespace MunicipalityApp.Controllers
         private readonly IReportRepository _reportRepository;
         private readonly IStringLocalizer<IssuesController> _localizer;
 
-        // Constructor: inject logger and repository
+        // Constructor: inject logger, repository, and localizer for messages
         public IssuesController(ILogger<IssuesController> logger, IReportRepository reportRepository, IStringLocalizer<IssuesController> localizer)
         {
             _logger = logger;
@@ -28,6 +28,7 @@ namespace MunicipalityApp.Controllers
         }
 
         // GET: /Issues
+        // Displays the main issues page
         [HttpGet]
         public IActionResult Index()
         {
@@ -36,6 +37,7 @@ namespace MunicipalityApp.Controllers
         }
 
         // POST: /Issues/SubmitReport
+        // Handles form submission for new issue reports, including media upload
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitReport(
@@ -47,18 +49,18 @@ namespace MunicipalityApp.Controllers
             // List to store uploaded file names
             List<string> mediaFiles = new List<string>();
 
-            // Save uploaded file to wwwroot/uploads
+            // If media file uploaded, save to wwwroot/uploads
             if (media != null && media.Length > 0)
             {
                 var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
                 
-                // Create uploads directory if it doesn't exist
+                // Ensure uploads directory exists
                 if (!Directory.Exists(uploads))
                     Directory.CreateDirectory(uploads);
 
+                // Save uploaded file
                 var fileName = Path.GetFileName(media.FileName);
                 var filePath = Path.Combine(uploads, fileName);
-
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await media.CopyToAsync(stream);
@@ -78,32 +80,33 @@ namespace MunicipalityApp.Controllers
                 DateSubmitted = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "South Africa Standard Time")
             };
 
-            // Save the issue to the repository (MongoDB)
+            // Save issue to persistent storage (MongoDB repository)
             await _reportRepository.CreateAsync(issue);
 
-            // Saves the issue in memory using custom linked list
+            // Save issue in in-memory custom linked list for fast access
             CustomIssues.IssuesList.Add(issue);
-            
+
             TempData["SuccessMessage"] = _localizer["ReportSubmittedMessage"].ToString();
 
             return RedirectToAction("Index");
         }
 
         // GET: /Issues/Status
+        // Displays all submitted reports, combining database and in-memory
         [HttpGet]
         public async Task<IActionResult> Status()
         {
-            ViewData["ActivePage"] = "ViewReports";
+            ViewData["ActivePage"] = "ViewReports"; 
 
-            // Retrieve all reports from repository
+            // Retrieve all reports from persistent storage
             var dbReports = await _reportRepository.GetAllAsync();
 
             // Retrieve all reports from in-memory linked list
-            var memoryReports = CustomIssues.IssuesList.GetAll();
+            var memoryReports = CustomIssues.IssuesList.GetAll().ToList();
 
-            // Combine database and in-memory issues, removing duplicates by Id
+            // Combine database and in-memory reports, removing duplicates by Id
             var combinedReports = dbReports.Concat(memoryReports)
-                                           .GroupBy(i => i.Id) // Assumes Issues has Id property
+                                           .GroupBy(i => i.Id)
                                            .Select(g => g.First())
                                            .ToList();
 
@@ -111,12 +114,14 @@ namespace MunicipalityApp.Controllers
         }
 
         // GET: /Issues/Privacy
+        // Displays the privacy policy page
         public IActionResult Privacy()
         {
             return View();
         }
 
         // GET: /Issues/Error
+        // Displays the error page with request ID
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

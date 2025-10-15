@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MunicipalityApp.Models;
 
+
 namespace MunicipalityApp.DataStructures
 {
     // A simple custom singly linked list used to store and retrieve issues
@@ -16,7 +17,6 @@ namespace MunicipalityApp.DataStructures
             count = 0;
         }
 
-    
         // Adds a new issue to the end of the linked list
         public void Add(Issues issue)
         {

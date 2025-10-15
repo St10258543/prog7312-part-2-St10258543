@@ -10,8 +10,8 @@ namespace MunicipalityApp.Controllers
 {
     public class EventsController : Controller
     {
-       
-        // List of available event categories for dropdown selection
+    
+        // Predefined event categories for filtering
         private readonly List<string> _categoryOptions = new()
         {
             "Community", "Government", "Education", "Environment", "Health",
@@ -19,24 +19,18 @@ namespace MunicipalityApp.Controllers
             "Transport", "Employment"
         };
 
-        
         // GET: /Events/Index
+        // Displays the main events page with search, filter, and sort.
         [HttpGet]
-        public IActionResult Index(
-            string? searchTerm,
-            string? CategoryFilter,
-            DateTime? eventDate,
-            string? sortBy)
+        public IActionResult Index(string? searchTerm, string? CategoryFilter, DateTime? eventDate, string? sortBy)
         {
-            // Retrieve all events from the queue
-            var events = MunicipalityData.EventsQueue?
-                .UnorderedItems
-                .Select(e => e.Element)
-                .ToList() ?? new List<Events>();
+            // Retrieve all events from the custom priority queue
+            var events = MunicipalityData.EventsQueue.GetAllElements();
 
-            // Retrieve announcements
-            var announcements = MunicipalityData.AnnouncementsByCategory 
-                                ?? new Dictionary<string, List<Announcements>>();
+            // 2Retrieve announcements grouped by category
+            var announcementsDict = new Dictionary<string, List<Announcements>>();
+            foreach (var key in MunicipalityData.AnnouncementsByCategory.Keys)
+                announcementsDict[key] = MunicipalityData.AnnouncementsByCategory[key];
 
             // Search functionality
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -47,12 +41,15 @@ namespace MunicipalityApp.Controllers
                              || e.Category.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
-                // Log user search for analytics or recommendations
-                MunicipalityData.LogUserSearchFromQuery(searchTerm);
+                // Log the category of the first matching event for personalized recommendations
+                var matchedCategory = events.FirstOrDefault()?.Category;
+                MunicipalityData.LogUserCategory(matchedCategory);
             }
 
-        
-            // Filter by category
+            // Retrieve top recommended events based on user’s category interest
+            var recommendations = MunicipalityData.GetRecommendedEvents(5);
+
+            // Filter events by selected category
             if (!string.IsNullOrWhiteSpace(CategoryFilter))
             {
                 events = events
@@ -60,15 +57,15 @@ namespace MunicipalityApp.Controllers
                     .ToList();
             }
 
-            // Filter by event date
+            // Filter events by specific date
             if (eventDate.HasValue)
             {
                 events = events
                     .Where(e => e.Date.Date == eventDate.Value.Date)
                     .ToList();
             }
+
             // Sorting logic
-            // ==========================
             events = sortBy?.ToLower() switch
             {
                 "date" => events.OrderBy(e => e.Date).ToList(),
@@ -77,15 +74,10 @@ namespace MunicipalityApp.Controllers
                 _ => events.OrderBy(e => e.Date).ToList()
             };
 
-            // ==========================
-            // Recommendations & Recently Viewed
-            // ==========================
-            var recommendations = MunicipalityData.GetRecommendedEvents(5); // configurable number of recommendations
+            // Retrieve recently viewed events
             var recentlyViewed = MunicipalityData.RecentlyViewedEvents.ToList();
 
-            // ==========================
-            // Build the ViewModel
-            // ==========================
+            // Build the ViewModel for the view
             var model = new EventsViewModel
             {
                 SearchTerm = searchTerm,
@@ -94,49 +86,49 @@ namespace MunicipalityApp.Controllers
                 Categories = new SelectList(_categoryOptions, CategoryFilter)
             };
 
-            // ==========================
-            // Pass data to View
-            // ==========================
+            // Pass data to the View via ViewData and ViewBag
             ViewData["Events"] = events;
-            ViewData["Announcements"] = announcements;
+            ViewData["Announcements"] = announcementsDict;
             ViewData["RecentlyViewed"] = recentlyViewed;
-            ViewBag.Recommended = recommendations;
             ViewBag.SortBy = sortBy;
+            ViewBag.Recommended = recommendations;
 
+            // Return the populated view
             return View(model);
         }
 
-        // ==========================
         // GET: /Events/ViewEvent/{id}
-        // ==========================
+        // Displays details for a specific event and updates recommendations.
         [HttpGet]
         public IActionResult ViewEvent(int id)
         {
             // Retrieve all events
-            var allEvents = MunicipalityData.EventsQueue?
-                .UnorderedItems
-                .Select(e => e.Element)
-                .ToList() ?? new List<Events>();
+            var allEvents = MunicipalityData.EventsQueue.GetAllElements();
 
-            // Find the event by ID
+            // Find event by its unique ID
             var selectedEvent = allEvents.FirstOrDefault(e => e.Id == id);
 
-            // Track as recently viewed
             if (selectedEvent != null)
             {
+                // Add event to the recently viewed stack
                 MunicipalityData.RecentlyViewedEvents.Push(selectedEvent);
+
+                // Log viewed event category 
+                MunicipalityData.LogUserCategory(selectedEvent.Category);
             }
 
             return View(selectedEvent);
         }
 
-        // ==========================
         // GET: /Events/Search
-        // Redirects to Index with search query
-        // ==========================
+        // Handles search requests and redirects to Index with results.
         [HttpGet]
         public IActionResult Search(string query)
         {
+            // Log search term for analytics and personalized suggestions
+            MunicipalityData.LogUserSearch(query);
+
+            // Redirect to Index with the search term parameter
             return RedirectToAction("Index", new { searchTerm = query });
         }
     }

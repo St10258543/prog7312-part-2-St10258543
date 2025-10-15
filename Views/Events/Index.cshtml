@@ -2,59 +2,56 @@
 @using MunicipalityApp.Models
 
 @{
-    // Retrieve event and announcement data from ViewData.
+    // Retrieve events and announcements from ViewData
     var events = ViewData["Events"] as List<Events> ?? new List<Events>();
     var announcements = ViewData["Announcements"] as Dictionary<string, List<Announcements>> ?? new Dictionary<string, List<Announcements>>();
+
+    // Define consistent colors for each category
+    var categoryColors = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        { "Environment", "success" },   // green
+        { "Sports", "primary" },        // blue
+        { "Community", "info" },        // light blue
+        { "Government", "dark" },       // dark grey
+        { "Culture", "warning" },       // yellow
+        { "Safety", "danger" },         // red
+        { "Health", "secondary" },      // grey
+        { "Education", "teal" },        // teal (custom CSS)
+        { "Employment", "purple" },     // custom purple
+        { "Technology", "indigo" },     // custom indigo
+        { "Infrastructure", "brown" }   // custom brown
+    };
 }
 
 <div class="container mt-5">
 
     <!-- Search and Filter Section -->
     <form method="get" asp-controller="Events" asp-action="Index" class="d-flex gap-2 mb-4">
-        
-        <!-- Keyword search -->
         <input type="text" name="searchTerm" class="form-control" placeholder="Search events..." value="@Model.SearchTerm" />
-
-        <!-- Category filter -->
         <select asp-for="CategoryFilter" asp-items="Model.Categories" class="form-select">
             <option value="">All Categories</option>
         </select>
-
-        <!-- Filter by date -->
         <input type="date" asp-for="EventDate" class="form-control" />
-
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
     <!-- Sorting options -->
     <div class="d-flex justify-content-end mb-3">
-        
-        <!-- Sort by Date -->
-        <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="date"
+        <a asp-controller="Events" asp-action="Index" asp-route-sortBy="date"
            asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-category="@Model.CategoryFilter"
+           asp-route-CategoryFilter="@Model.CategoryFilter"
            asp-route-eventDate="@(Model.EventDate?.ToString("yyyy-MM-dd"))"
-           class="btn btn-outline-primary me-2">
-            Sort by Date
-        </a>
-
-        <!-- Sort by Category -->
-        <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="category"
+           class="btn btn-outline-primary me-2">Sort by Date</a>
+        <a asp-controller="Events" asp-action="Index" asp-route-sortBy="category"
            asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-category="@Model.CategoryFilter"
+           asp-route-CategoryFilter="@Model.CategoryFilter"
            asp-route-eventDate="@(Model.EventDate?.ToString("yyyy-MM-dd"))"
-           class="btn btn-outline-primary me-2">
-            Sort by Category
-        </a>
-
-        <!-- Sort by Title -->
-        <a asp-controller="Events" asp-action="Sort" asp-route-sortBy="title"
+           class="btn btn-outline-primary me-2">Sort by Category</a>
+        <a asp-controller="Events" asp-action="Index" asp-route-sortBy="title"
            asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-category="@Model.CategoryFilter"
+           asp-route-CategoryFilter="@Model.CategoryFilter"
            asp-route-eventDate="@(Model.EventDate?.ToString("yyyy-MM-dd"))"
-           class="btn btn-outline-primary">
-            Sort by Title
-        </a>
+           class="btn btn-outline-primary">Sort by Title</a>
     </div>
 
     <!-- Upcoming events -->
@@ -68,10 +65,14 @@
                 <div class="col">
                     <div class="card shadow-sm border-0 rounded-4 h-100">
                         <div class="card-body">
-                            <h5 class="card-title text-primary fw-bold">@e.Title</h5>
-                            <p class="card-subtitle text-muted mb-2">
-                                @e.Date.ToString("MMMM dd, yyyy") &nbsp;|&nbsp; @e.Category
+                            <!-- Title with category color -->
+                            <h5 class="card-title text-@((categoryColors.ContainsKey(e.Category)) ? categoryColors[e.Category] : "primary") fw-bold">@e.Title</h5>
+
+                            <p class="card-subtitle mb-2">
+                                @e.Date.ToString("MMMM dd, yyyy") &nbsp;|&nbsp;
+                                <span class="badge bg-@((categoryColors.ContainsKey(e.Category)) ? categoryColors[e.Category] : "primary")">@e.Category</span>
                             </p>
+
                             <p class="card-text text-secondary">@e.Description</p>
                         </div>
                         <div class="card-footer bg-light border-0 text-end">
@@ -87,15 +88,12 @@
     }
     else
     {
-        // No events available message
-        <div class="alert alert-info text-center">
-            No upcoming events available.
-        </div>
+        <div class="alert alert-info text-center">No upcoming events available.</div>
     }
 
     <hr class="my-5" />
 
-    <!-- Announcements  -->
+    <!-- Announcements -->
     <h2 class="mb-4 text-success fw-bold border-bottom pb-2">Announcements</h2>
 
     @if (announcements.Any())
@@ -104,7 +102,6 @@
         {
             <div class="mb-4">
                 <h4 class="fw-semibold text-success">@category</h4>
-
                 <div class="list-group shadow-sm rounded-4">
                     @foreach (var a in announcements[category])
                     {
@@ -122,10 +119,7 @@
     }
     else
     {
-        // No announcements available message 
-        <div class="alert alert-warning text-center">
-            No announcements available.
-        </div>
+        <div class="alert alert-warning text-center">No announcements available.</div>
         <hr class="my-5" />
     }
 
@@ -144,9 +138,10 @@
                 <div class="col">
                     <div class="card border-warning shadow-sm rounded-4 h-100">
                         <div class="card-body">
-                            <h5 class="card-title text-warning">@ev.Title</h5>
-                            <p class="card-subtitle text-muted mb-2">
-                                @ev.Date.ToString("MMMM dd, yyyy") | @ev.Category
+                            <h5 class="card-title text-@((categoryColors.ContainsKey(ev.Category)) ? categoryColors[ev.Category] : "warning")">@ev.Title</h5>
+                            <p class="card-subtitle mb-2">
+                                @ev.Date.ToString("MMMM dd, yyyy") &nbsp;|&nbsp;
+                                <span class="badge bg-@((categoryColors.ContainsKey(ev.Category)) ? categoryColors[ev.Category] : "warning")">@ev.Category</span>
                             </p>
                             <p class="card-text text-secondary">@ev.Description</p>
                         </div>
@@ -160,28 +155,25 @@
     }
     else
     {
-        // No recently viewed events
-        <div class="alert alert-light text-center text-muted">
-            No events viewed recently.
-        </div>
+        <div class="alert alert-light text-center text-muted">No events viewed recently.</div>
     }
 
-    <!--Recommended Events Section -->
-    @if (ViewBag.Recommended != null && (ViewBag.Recommended as List<MunicipalityApp.Models.Events>).Any())
+    <!-- Recommended Events -->
+    @if (ViewBag.Recommended != null && (ViewBag.Recommended as List<Events>).Any())
     {
         <hr />
         <h3>Recommended for You</h3>
 
         <div class="row">
-            @foreach (var rec in ViewBag.Recommended as List<MunicipalityApp.Models.Events>)
+            @foreach (var rec in ViewBag.Recommended as List<Events>)
             {
                 <div class="col-md-4 mb-3">
                     <div class="card border-info shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">@rec.Title</h5>
+                            <h5 class="card-title text-@((categoryColors.ContainsKey(rec.Category)) ? categoryColors[rec.Category] : "info")">@rec.Title</h5>
                             <p class="card-text">@rec.Description</p>
                             <p><strong>Date:</strong> @rec.Date.ToString("MMM dd, yyyy")</p>
-                            <span class="badge bg-info text-dark">@rec.Category</span>
+                            <span class="badge bg-@((categoryColors.ContainsKey(rec.Category)) ? categoryColors[rec.Category] : "info")">@rec.Category</span>
                         </div>
                     </div>
                 </div>

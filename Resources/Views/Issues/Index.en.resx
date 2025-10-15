@@ -14,12 +14,15 @@
     <value>Report any issues like broken streetlights, water leaks, or road damage.</value>
   </data>
 
-  <!--Report Issues Form -->
+ <!-- Report Issues Form -->
   <data name="Location" xml:space="preserve">
     <value>Location:</value>
   </data>
   <data name="EnterLocationPlaceholder" xml:space="preserve">
-    <value>Enter location of the issue</value>
+    <value>Street Address&#10;City&#10;State/Province&#10;ZIP/Postal Code</value>
+  </data>
+  <data name="EnterCompleteAddress" xml:space="preserve">
+    <value>Enter the complete address</value>
   </data>
 
   <data name="Category" xml:space="preserve">
@@ -29,10 +32,10 @@
     <value>Select Category</value>
   </data>
   <data name="Sanitation" xml:space="preserve">
-    <value>Water and Sanitation</value>
+    <value>Sanitation</value>
   </data>
   <data name="Roads" xml:space="preserve">
-    <value>Roads and Transport</value>
+    <value>Roads</value>
   </data>
   <data name="Utilities" xml:space="preserve">
     <value>Utilities</value>

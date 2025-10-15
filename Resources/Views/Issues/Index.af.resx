@@ -15,12 +15,15 @@
     <value>Rapporteer ’n Probleem</value>
   </data>
 
-  <!-- Report Issues Form -->
+ <!-- Report Issues Form -->
   <data name="Location" xml:space="preserve">
     <value>Ligging:</value>
   </data>
   <data name="EnterLocationPlaceholder" xml:space="preserve">
-    <value>Voer die ligging van die probleem in</value>
+    <value>Straatadres&#10;Stad&#10;Provinsie&#10;Poskode</value>
+  </data>
+  <data name="EnterCompleteAddress" xml:space="preserve">
+    <value>Voer die volledige adres in</value>
   </data>
 
   <data name="Category" xml:space="preserve">

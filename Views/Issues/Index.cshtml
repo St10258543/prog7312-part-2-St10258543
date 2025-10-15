@@ -1,12 +1,16 @@
 @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
 @{
+    // Set page title using localized string
     ViewData["Title"] = Localizer["ReportIssuesTitle"];
 }
 
 <!-- <Section: Hero Section> -->
-<div class="issue-hero-section">
+<div class="issue-hero-section" style="background-image: url('/Images/issues-index.jpeg');">
+    <!-- Overlay for better readability -->
     <div class="overlay"></div>
+
+    <!-- Hero content: page title and description -->
     <div class="issue-hero-content">
         <h1 class="app-title">@Localizer["ReportIssuesTitle"]</h1>
         <p class="app-description">@Localizer["ReportIssuesDescription"]</p>
@@ -15,6 +19,8 @@
 
 <!-- <Section: Report Form Wrapper> -->
 <div class="report-wrapper container">
+
+    <!-- Display success message after submission -->
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,31 +29,34 @@
         </div>
     }
 
+    <!-- <Section: Report Form> -->
     <div class="report-card">
         <form id="reportForm" method="post" enctype="multipart/form-data" 
               asp-controller="Issues" asp-action="SubmitReport">
 
-            <!-- <Row: Location Input> -->
-<div class="form-group">
-    <label for="location">@Localizer["Location"]</label>
-    <textarea id="location" name="location" class="form-control" rows="3"
-              placeholder="@Localizer["EnterLocationPlaceholder"]" required></textarea>
-</div>
+            <!-- <Section: Location Address Fields> -->
+            <div class="form-group">
+                <label for="location">@Localizer["Location"]</label>
+                <textarea id="location" name="location" class="form-control" rows="4"
+                          placeholder="Street Address&#10;City&#10;State/Province&#10;ZIP/Postal Code"
+                          title="Enter the complete address" required></textarea>
+                <small class="form-text text-muted">
+                </small>
+            </div>
 
-<!-- <Row: Category Dropdown (Now under Location)> -->
-<div class="form-group">
-    <label for="category">@Localizer["Category"]</label>
-    <select id="category" name="category" class="form-control" required>
-        <option value="">-- @Localizer["SelectCategory"] --</option>
-        <option value="Water and Sanitation">@Localizer["Water and Sanitiation"]</option>
-        <option value="Electricity and Lighting">@Localizer["Electricity and Lighting"]</option>
-        <option value="Roads and Transport">@Localizer["Roads and Transport"]</option>
-        <option value="Waste and Environment">@Localizer["Waste and Environment"]</option>
-        <option value="Community and Governance">@Localizer["Community and Governance"]</option>
-        <option value="Other">@Localizer["Other"]</option>
-    </select>
-</div>
-
+            <!-- <Row: Category Input> -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="category">@Localizer["Category"]</label>
+                    <select id="category" name="category" class="form-control" required>
+                        <option value="">-- @Localizer["SelectCategory"] --</option>
+                        <option value="Sanitation">@Localizer["Sanitation"]</option>
+                        <option value="Roads">@Localizer["Roads"]</option>
+                        <option value="Utilities">@Localizer["Utilities"]</option>
+                        <option value="Other">@Localizer["Other"]</option>
+                    </select>
+                </div>
+            </div>
 
             <!-- <Textarea: Issue Description> -->
             <div class="form-group">
@@ -100,7 +109,7 @@
         const mediaButton = document.getElementById('mediaButton');
         const mediaLabel = document.getElementById('mediaLabel');
         const progressBar = document.getElementById('progressBar');
-        const formInputs = ["location", "category", "description", "latitude", "longitude"];
+        const formInputs = ["location", "category", "description"];
 
         // Trigger file input when button is clicked
         mediaButton.addEventListener('click', () => mediaInput.click());
@@ -121,18 +130,10 @@
 
         function updateProgress() {
             let progress = 0;
-            const locationValue = document.getElementById("location").value.trim();
-            const categoryValue = document.getElementById("category").value;
-            const descriptionValue = document.getElementById("description").value.trim();
-            const latitudeValue = document.getElementById("latitude").value.trim();
-            const longitudeValue = document.getElementById("longitude").value.trim();
-            const mediaFiles = mediaInput.files.length;
-
-            if (locationValue !== "") progress += 15;
-            if (categoryValue !== "") progress += 15;
-            if (descriptionValue !== "") progress += 25;
-            if (mediaFiles > 0) progress += 25;
-            if (latitudeValue !== "" && longitudeValue !== "") progress += 20;
+            if (document.getElementById("location").value.trim() !== "") progress += 20;
+            if (document.getElementById("category").value !== "") progress += 20;
+            if (document.getElementById("description").value.trim() !== "") progress += 30;
+            if (mediaInput.files.length > 0) progress += 30;
 
             progressBar.style.width = progress + "%";
             progressBar.innerText = progress + "%";

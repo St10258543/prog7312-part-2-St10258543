@@ -9,7 +9,7 @@ namespace MunicipalityApp.Models
         // MongoDB ObjectId, stored as a string
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         // Location of where the issue occurred
         public string Location { get; set; } = null!;

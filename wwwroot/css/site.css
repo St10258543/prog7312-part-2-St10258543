@@ -609,6 +609,17 @@ body {
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 .category {
-    color: #3B82F6;
+    color: #19183B;
     font-weight: bold;
 }
+/* Custom colors for event categories */
+.bg-teal { background-color: #008080 !important; }       /* Teal */
+.bg-purple { background-color: #6f42c1 !important; }     /* Purple */
+.bg-indigo { background-color: #6610f2 !important; }     /* Indigo */
+.bg-brown { background-color: #8B4513 !important; }      /* Brown */
+
+/* Optional: text color variants */
+.text-teal { color: #008080 !important; }
+.text-purple { color: #6f42c1 !important; }
+.text-indigo { color: #6610f2 !important; }
+.text-brown { color: #8B4513 !important; }
