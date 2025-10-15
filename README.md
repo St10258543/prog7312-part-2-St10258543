@@ -106,10 +106,10 @@ The application relies on custom-built data structures for in-memory management:
 * **Event Management:**
 * Display municipal events with title, description, category, and date.
 
-* * **Announcements:**
+* **Announcements:**
 * View announcements grouped by category.
 
-* * **Search & Filtering:**
+* **Search & Filtering:**
 * Search events by title, description, or category; filter by date or category.
 
 *  **Recommendations:**
