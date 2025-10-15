@@ -104,16 +104,16 @@ The application relies on custom-built data structures for in-memory management:
   Residents can view the progress of their submitted reports with colored status indicators.
 
 * **Event Management:**
-* Display municipal events with title, description, category, and date.
+  Display municipal events with title, description, category, and date.
 
 * **Announcements:**
-* View announcements grouped by category.
+  View announcements grouped by category.
 
 * **Search & Filtering:**
-* Search events by title, description, or category; filter by date or category.
+  Search events by title, description, or category; filter by date or category.
 
 *  **Recommendations:**
-* System recommends events based on user search history and frequently viewed categories.
+  System recommends events based on user search history and frequently viewed categories.
 
 * **Media Upload:**
   Users can upload images associated with issues, which are stored in a folder or Blob Storage if configured.
