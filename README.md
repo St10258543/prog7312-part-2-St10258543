@@ -196,6 +196,7 @@ We welcome contributions:
 
 **Q:** Are event recommendations personalized?
 **A:** Yes, based on previously viewed events and user search preferences.
+
 ---
 
 ## Contact and Support
